@@ -14,7 +14,7 @@ const handleRegister = (event) => {
 
 function App() {
   return (
-    <div className="App">
+    <div className="">
       <RegisterReactBs></RegisterReactBs>
     </div>
   );
