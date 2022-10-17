@@ -1,5 +1,6 @@
 import { getAuth } from "firebase/auth";
 import "./App.css";
+import RegisterReactBs from "./Components/RegisterReactBs";
 import app from "./firebase/firebase.init";
 
 const auth = getAuth(app);
@@ -14,18 +15,7 @@ const handleRegister = (event) => {
 function App() {
   return (
     <div className="App">
-      <form onSubmit={handleRegister}>
-        <input type="email" name="email" id="" placeholder="Your Email" />
-        <br />
-        <input
-          type="password"
-          name="password"
-          id=""
-          placeholder="Your Password"
-        />
-        <br />
-        <button className="submit">Register</button>
-      </form>
+      <RegisterReactBs></RegisterReactBs>
     </div>
   );
 }
