@@ -8,8 +8,10 @@ const auth = getAuth(app);
 
 const RegisterReactBs = () => {
   const [passwordError, setPasswordError] = useState("");
+  const [success, setSuccess] = useState(false);
   const handleRegister = (event) => {
     event.preventDefault();
+    const form = event.target;
     const email = event.target.email.value;
     const password = event.target.password.value;
     console.log(email, password);
@@ -30,9 +32,14 @@ const RegisterReactBs = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
+        setSuccess(true);
+
+        //To reset the form
+        form.reset();
       })
       .catch((error) => {
         console.error("error: ", error);
+        setPasswordError(error.message);
       });
   };
   return (
@@ -59,6 +66,7 @@ const RegisterReactBs = () => {
           />
         </Form.Group>
         <p className="text-primary">{passwordError}</p>
+        {success && <p className="text-success">User Created Successfully</p>}
 
         <Button variant="primary" type="submit">
           Register
