@@ -1,4 +1,9 @@
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  sendEmailVerification,
+  updateCurrentUser,
+} from "firebase/auth";
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -37,11 +42,18 @@ const RegisterReactBs = () => {
 
         //To reset the form
         form.reset();
+        verifyEmail();
       })
       .catch((error) => {
         console.error("error: ", error);
         setPasswordError(error.message);
       });
+  };
+
+  const verifyEmail = () => {
+    sendEmailVerification(auth.currentUser).then(() => {
+      alert("Please check your email");
+    });
   };
   return (
     <div className="w-50 mx-auto">
