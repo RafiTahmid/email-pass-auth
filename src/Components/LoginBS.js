@@ -1,4 +1,8 @@
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import app from "../firebase/firebase.init";
@@ -7,6 +11,7 @@ const auth = getAuth(app);
 
 const LoginBS = () => {
   const [success, setSuccess] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
   const handleSubmit = (event) => {
     event.preventDefault();
     setSuccess(false);
@@ -25,15 +30,35 @@ const LoginBS = () => {
         console.error("error: ", error);
       });
   };
+
+  const handleForgetPassword = () => {
+    if (!userEmail) {
+      alert("Please, enter your email address");
+    }
+    sendPasswordResetEmail(auth, userEmail)
+      .then(() => {
+        alert("Reset password mail has been sent, please check your email");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const handleEmailBlur = (event) => {
+    const email = event.target.value;
+    setUserEmail(email);
+  };
+
   return (
     <div className="w-50 mx-auto">
       <h2 className="text-success">Please, Login..!!</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="formGroupExampleInput" className="form-label">
-            Example label
+            Email
           </label>
           <input
+            onBlur={handleEmailBlur}
             type="email"
             name="emial"
             className="form-control"
@@ -44,7 +69,7 @@ const LoginBS = () => {
         </div>
         <div className="mb-3">
           <label htmlFor="formGroupExampleInput2" className="form-label">
-            Another label
+            Password
           </label>
           <input
             type="password"
@@ -62,6 +87,16 @@ const LoginBS = () => {
         <small>
           New To This Site..? Please <Link to="/register">Register</Link>{" "}
         </small>
+      </p>
+      <p>
+        Forget Password?{" "}
+        <button
+          type="button"
+          onClick={handleForgetPassword}
+          className="btn btn-link"
+        >
+          Reset
+        </button>
       </p>
     </div>
   );

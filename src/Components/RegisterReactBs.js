@@ -60,7 +60,16 @@ const RegisterReactBs = () => {
       <h2 className="text-danger">Please Register..!!!</h2>
       <Form onSubmit={handleRegister}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
+          <Form.Label>Your Name</Form.Label>
+          <Form.Control
+            type="text"
+            name="name"
+            placeholder="Enter Name"
+            required
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>Your Email Address</Form.Label>
           <Form.Control
             type="email"
             name="email"
@@ -70,7 +79,7 @@ const RegisterReactBs = () => {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>Your Password</Form.Label>
           <Form.Control
             type="password"
             name="password"
